@@ -1,0 +1,52 @@
+
+<div class="container">
+    
+    <div *ngIf="selectedPhotos.length>0" class="delete_button text-danger text-center my-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <a class="text-danger" href="javascript:voild(0)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+              </svg>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-3 my-3 parent_checkbox" *ngFor="let photo of PhotoList" (window:scroll)="onWindowScroll()" lazy-load-images>
+            <input *ngIf="photo?.url" class="form-check-input checkbox_image" type="checkbox" [checked]="selectedPhotos.includes(photo.id)" (change)="toggleSelection(photo.id)" lazy-load-images>
+            <img [lazyload]="photo?.url"  alt="" class="img-thumbnail" title="Maximize" loading="lazy">
+            <a href="javascript:voild(0)" *ngIf="photo?.url">
+                <div class="middle" (click)="openFullscreen(photo.id)">
+                    <div class="text"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-fullscreen" viewBox="0 0 16 16">
+                        <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
+                      </svg></div>
+                  </div>
+            </a>
+        </div>
+    </div>
+    <div class="row" *ngIf="PhotoList?.length == 0">
+        <h3 class="text-danger text-center">Data not found. Please Reload Page Again!</h3>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Please Wait. </p>
+  </ngx-spinner>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Are you sure want to delete these images</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteSelectedPhotos()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

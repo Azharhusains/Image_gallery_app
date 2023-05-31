@@ -1,0 +1,27 @@
+.parent_checkbox {
+    position: relative;
+}
+
+.checkbox_image {
+    padding: 10px;
+    position: absolute;
+    left: 17px;
+    top: 1px;
+    border: 2px solid gray;
+    border-radius: 0;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+.img-thumbnail {
+    transition: .5s ease;
+}
